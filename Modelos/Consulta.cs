@@ -5,6 +5,8 @@
 // ENCAPSULAMENTO: estado da consulta controlado internamente.
 // ============================================================
 
+using System;
+using System.Collections.Generic;
 using AgendamentoMedico.Interfaces;
 using AgendamentoMedico.Modelos;
 

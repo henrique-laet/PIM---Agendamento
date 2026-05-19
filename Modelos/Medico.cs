@@ -4,7 +4,8 @@
 // POLIMORFISMO: sobrescreve ObterTipo() e ExibirResumo().
 // ENCAPSULAMENTO: CRM e Especialidade são protegidos.
 // ============================================================
-
+using System;
+using System.Collections.Generic;
 using AgendamentoMedico.Interfaces;
 
 namespace AgendamentoMedico.Modelos

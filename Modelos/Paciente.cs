@@ -4,7 +4,8 @@
 // POLIMORFISMO: sobrescreve ObterTipo().
 // ENCAPSULAMENTO: histórico e convênio protegidos.
 // ============================================================
-
+using System;
+using System.Collections.Generic;
 namespace AgendamentoMedico.Modelos
 {
     public class Paciente : Pessoa

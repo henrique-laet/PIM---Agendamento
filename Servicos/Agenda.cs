@@ -4,7 +4,9 @@
 // Aplica regras de negócio: conflito de horário, disponibilidade.
 // POLIMORFISMO: trabalha com IAgendavel para flexibilidade.
 // ============================================================
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using AgendamentoMedico.Interfaces;
 using AgendamentoMedico.Modelos;
 
@@ -13,11 +15,11 @@ namespace AgendamentoMedico.Servicos
     public class Agenda
     {
         // Armazena todas as consultas do sistema
-        private List<Consulta> _consultas;
+        private readonly List<Consulta> _consultas;
 
         // Armazena médicos e pacientes cadastrados
-        private List<Medico> _medicos;
-        private List<Paciente> _pacientes;
+        private readonly List<Medico> _medicos;
+        private readonly List<Paciente> _pacientes;
 
         public Agenda()
         {
@@ -32,7 +34,9 @@ namespace AgendamentoMedico.Servicos
 
         public void CadastrarMedico(Medico medico)
         {
-            // Verifica duplicidade por CRM
+            if (medico is null)
+                throw new ArgumentNullException(nameof(medico));
+
             if (_medicos.Any(m => m.CRM == medico.CRM))
                 throw new InvalidOperationException($"Médico com CRM {medico.CRM} já cadastrado.");
 
@@ -41,7 +45,9 @@ namespace AgendamentoMedico.Servicos
 
         public void CadastrarPaciente(Paciente paciente)
         {
-            // Verifica duplicidade por CPF
+            if (paciente is null)
+                throw new ArgumentNullException(nameof(paciente));
+
             if (_pacientes.Any(p => p.CPF == paciente.CPF))
                 throw new InvalidOperationException($"Paciente com CPF {paciente.CPF} já cadastrado.");
 
@@ -55,19 +61,58 @@ namespace AgendamentoMedico.Servicos
         public Consulta AgendarConsulta(Paciente paciente, Medico medico,
                                         DateTime dataHora, string observacoes = "")
         {
-            // Regra 1: Verifica se o médico está disponível nesse horário
+            if (paciente is null)
+                throw new ArgumentNullException(nameof(paciente));
+            if (medico is null)
+                throw new ArgumentNullException(nameof(medico));
+            if (dataHora <= DateTime.Now)
+                throw new ArgumentException("Data/hora da consulta deve ser futura.", nameof(dataHora));
+            if (!_medicos.Any(m => m.CRM == medico.CRM))
+                throw new InvalidOperationException("Médico não cadastrado na agenda.");
+            if (!_pacientes.Any(p => p.CPF == paciente.CPF))
+                throw new InvalidOperationException("Paciente não cadastrado na agenda.");
+
+            int duracaoMinutos = medico.Especialidade.DuracaoConsultaMinutos;
+
             if (!MedicoEstaDisponivel(medico, dataHora))
                 throw new InvalidOperationException(
                     $"Médico {medico.Nome} não está disponível em {dataHora:dd/MM/yyyy HH:mm}.");
 
-            // Regra 2: Verifica se o paciente já tem consulta no mesmo horário
-            if (!PacienteEstaDisponivel(paciente, dataHora, medico.Especialidade.DuracaoConsultaMinutos))
+            if (!PacienteEstaDisponivel(paciente, dataHora, duracaoMinutos))
                 throw new InvalidOperationException(
                     $"Paciente {paciente.Nome} já possui consulta neste horário.");
 
-            // Cria e registra a consulta
             var consulta = new Consulta(paciente, medico, dataHora, observacoes);
             _consultas.Add(consulta);
+
+            return consulta;
+        }
+
+        public Consulta Remarcar(int consultaId, DateTime novaDataHora)
+        {
+            if (novaDataHora <= DateTime.Now)
+                throw new ArgumentException("Nova data/hora deve ser futura.", nameof(novaDataHora));
+
+            var consulta = BuscarConsultaPorId(consultaId)
+                ?? throw new InvalidOperationException("Consulta não encontrada.");
+
+            if (!consulta.EstaAtivo())
+                throw new InvalidOperationException("Somente consultas ativas podem ser remarcadas.");
+
+            var medico = consulta.Medico;
+            var paciente = consulta.Paciente;
+            int duracaoMinutos = medico.Especialidade.DuracaoConsultaMinutos;
+
+            if (!MedicoEstaDisponivel(medico, novaDataHora, consultaId))
+                throw new InvalidOperationException(
+                    $"Médico {medico.Nome} não está disponível em {novaDataHora:dd/MM/yyyy HH:mm}.");
+
+            if (!PacienteEstaDisponivel(paciente, novaDataHora, duracaoMinutos, consultaId))
+                throw new InvalidOperationException(
+                    $"Paciente {paciente.Nome} já possui outra consulta neste horário.");
+
+            if (!consulta.Remarcar(novaDataHora))
+                throw new InvalidOperationException("Não foi possível remarcar a consulta.");
 
             return consulta;
         }
@@ -76,38 +121,46 @@ namespace AgendamentoMedico.Servicos
         // VERIFICAÇÕES DE DISPONIBILIDADE
         // ============================================================
 
-        private bool MedicoEstaDisponivel(Medico medico, DateTime dataHora)
+        private bool MedicoEstaDisponivel(Medico medico, DateTime dataHora, int? excluirConsultaId = null)
         {
+            if (medico is null)
+                throw new ArgumentNullException(nameof(medico));
+
+            if (dataHora <= DateTime.Now)
+                return false;
+
             int duracaoMinutos = medico.Especialidade.DuracaoConsultaMinutos;
 
-            // Verifica se o horário está dentro dos horários cadastrados do médico
             bool horarioValido = medico.HorariosDisponiveis
                 .Any(h => h == dataHora.TimeOfDay);
 
-            if (!horarioValido) return false;
+            if (!horarioValido)
+                return false;
 
-            // Verifica conflito com consultas já agendadas do médico
-            bool temConflito = _consultas
+            return !_consultas
                 .Where(c => c.Medico.CRM == medico.CRM && c.EstaAtivo())
+                .Where(c => !excluirConsultaId.HasValue || c.Id != excluirConsultaId.Value)
                 .Any(c =>
                 {
-                    // Calcula intervalo de tempo da consulta existente
                     DateTime inicio = c.DataHora;
                     DateTime fim = inicio.AddMinutes(duracaoMinutos);
                     DateTime novoInicio = dataHora;
                     DateTime novoFim = novoInicio.AddMinutes(duracaoMinutos);
-
-                    // Há conflito se os intervalos se sobrepõem
                     return novoInicio < fim && novoFim > inicio;
                 });
-
-            return !temConflito;
         }
 
-        private bool PacienteEstaDisponivel(Paciente paciente, DateTime dataHora, int duracaoMinutos)
+        private bool PacienteEstaDisponivel(Paciente paciente, DateTime dataHora, int duracaoMinutos, int? excluirConsultaId = null)
         {
+            if (paciente is null)
+                throw new ArgumentNullException(nameof(paciente));
+
+            if (dataHora <= DateTime.Now)
+                return false;
+
             return !_consultas
                 .Where(c => c.Paciente.CPF == paciente.CPF && c.EstaAtivo())
+                .Where(c => !excluirConsultaId.HasValue || c.Id != excluirConsultaId.Value)
                 .Any(c =>
                 {
                     DateTime inicio = c.DataHora;
@@ -143,16 +196,14 @@ namespace AgendamentoMedico.Servicos
         // Lista horários disponíveis de um médico em uma data
         public List<DateTime> ListarHorariosDisponiveis(Medico medico, DateTime data)
         {
-            var horariosLivres = new List<DateTime>();
+            if (medico is null)
+                throw new ArgumentNullException(nameof(medico));
 
-            foreach (var horario in medico.HorariosDisponiveis)
-            {
-                var dataHora = data.Date.Add(horario);
-                if (dataHora > DateTime.Now && MedicoEstaDisponivel(medico, dataHora))
-                    horariosLivres.Add(dataHora);
-            }
-
-            return horariosLivres;
+            return medico.HorariosDisponiveis
+                .Select(horario => data.Date.Add(horario))
+                .Where(dataHora => dataHora > DateTime.Now && MedicoEstaDisponivel(medico, dataHora))
+                .OrderBy(dataHora => dataHora)
+                .ToList();
         }
 
         // Lista todos os médicos por especialidade

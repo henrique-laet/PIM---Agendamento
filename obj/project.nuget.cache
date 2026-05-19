@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "63zyZOLLBIs=",
+  "dgSpecHash": "BnpPMl6vQPQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\henrique.laet\\OneDrive - 7COMm Informática\\Documentos\\HenriqueProject\\Agendamento\\AgendamentoMedico.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\User\\Desktop\\Agendamento\\AgendamentoMedico.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0\\microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.0\\microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\npgsql\\10.0.2\\npgsql.10.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -3,6 +3,8 @@
 // Representa a especialidade médica.
 // ENCAPSULAMENTO: dados protegidos e validados internamente.
 // ============================================================
+using System;
+using System.Collections.Generic;
 
 namespace AgendamentoMedico.Modelos
 {
