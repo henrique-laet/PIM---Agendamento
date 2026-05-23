@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaCare — Médicos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.svg" alt="VitaCare" style="height: 48px; margin-top: 8px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="agendamentos.html">Agendamentos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pacientes.html">Pacientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <div class="container py-5">
+        <h2 class="fw-bold mb-4"><i class="bi bi-person-badge text-primary"></i> Médicos</h2>
+
+        <div class="row g-4" id="listaMedicos"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4 text-white mt-5">
+        <p class="mb-0">© 2025 VitaCare — Sistema de Agendamento Médico</p>
+    </footer>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const medicos = [
+            {
+                nome: "Dr. Carlos Eduardo",
+                crm: "CRM-SP-12345",
+                especialidade: "Clínico Geral",
+                email: "carlos@vitacare.com",
+                telefone: "11999990001",
+                duracao: "30 min",
+                valor: "R$ 120,00",
+                icone: "bi-clipboard2-pulse"
+            },
+            {
+                nome: "Dra. Ana Paula",
+                crm: "CRM-SP-54321",
+                especialidade: "Cardiologia",
+                email: "ana@vitacare.com",
+                telefone: "11999990002",
+                duracao: "45 min",
+                valor: "R$ 250,00",
+                icone: "bi-heart-pulse"
+            },
+            {
+                nome: "Dr. Roberto Lima",
+                crm: "CRM-SP-99887",
+                especialidade: "Oftalmologia",
+                email: "roberto@vitacare.com",
+                telefone: "11999990003",
+                duracao: "30 min",
+                valor: "R$ 180,00",
+                icone: "bi-eye"
+            }
+        ];
+
+        function carregarMedicos() {
+            const lista = document.getElementById('listaMedicos');
+            lista.innerHTML = '';
+
+            medicos.forEach(m => {
+                lista.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="card card-especialidade p-4 text-center">
+                            <i class="bi ${m.icone} fs-1 text-primary mb-3"></i>
+                            <h5 class="fw-bold">${m.nome}</h5>
+                            <span class="badge bg-primary mb-3">${m.especialidade}</span>
+                            <ul class="list-unstyled text-muted text-start">
+                                <li><i class="bi bi-card-text text-primary"></i> <strong>CRM:</strong> ${m.crm}</li>
+                                <li><i class="bi bi-envelope text-primary"></i> ${m.email}</li>
+                                <li><i class="bi bi-telephone text-primary"></i> ${m.telefone}</li>
+                                <li><i class="bi bi-clock text-primary"></i> Duração: ${m.duracao}</li>
+                                <li><i class="bi bi-cash text-primary"></i> Consulta: ${m.valor}</li>
+                            </ul>
+                            <a href="agendamentos.html" class="btn btn-primary mt-3" style="border-radius: 30px;">
+                                <i class="bi bi-calendar-plus"></i> Agendar
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarMedicos);
+    </script>
+</body>
+</html>

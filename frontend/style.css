@@ -1,0 +1,138 @@
+/* ===== GERAL ===== */
+:root {
+    --azul-principal: #1a6fb5;
+    --azul-escuro: #0d4a7a;
+    --azul-claro: #e8f4fd;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background-color: var(--azul-escuro);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar-brand i {
+    color: #ff6b6b;
+}
+
+.nav-link:hover {
+    color: #aed6f1 !important;
+}
+
+/* ===== HERO ===== */
+.hero {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-principal));
+    min-height: 420px;
+    padding: 60px 0;
+}
+
+.hero h1 {
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.hero .btn-light {
+    color: var(--azul-principal);
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 12px 30px;
+    transition: all 0.3s;
+}
+
+.hero .btn-light:hover {
+    background-color: var(--azul-claro);
+    transform: scale(1.05);
+}
+
+/* ===== CARDS ESPECIALIDADES ===== */
+.card-especialidade {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-especialidade:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card-especialidade h5 {
+    font-weight: bold;
+    color: var(--azul-escuro);
+}
+
+/* ===== TABELA ===== */
+.table thead {
+    background-color: var(--azul-principal);
+    color: white;
+}
+
+.table-primary th {
+    background-color: var(--azul-principal) !important;
+    color: white !important;
+}
+
+.badge-confirmado {
+    background-color: #28a745;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.badge-pendente {
+    background-color: #ffc107;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.badge-cancelado {
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background-color: var(--azul-escuro);
+}
+
+/* ===== LOGIN ===== */
+.login-body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-principal));
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    border: none;
+}
+
+.btn-login {
+    background-color: var(--azul-principal);
+    border: none;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.btn-login:hover {
+    background-color: var(--azul-escuro);
+    transform: scale(1.02);
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaCare — Agendamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.svg" alt="VitaCare" style="height: 48px; margin-top: 8px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="agendamentos.html">Agendamentos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pacientes.html">Pacientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <div class="container py-5">
+        <h2 class="fw-bold mb-4"><i class="bi bi-calendar-plus text-primary"></i> Agendamentos</h2>
+
+        <div class="row g-4">
+
+            <!-- FORMULÁRIO -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm p-4" style="border-radius: 16px;">
+                    <h5 class="fw-bold mb-4">Nova Consulta</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Paciente</label>
+                        <select class="form-select" id="selectPaciente">
+                            <option value="">Selecione o paciente</option>
+                            <option>João Silva</option>
+                            <option>Maria Souza</option>
+                            <option>Pedro Santos</option>
+                            <option>Lucia Ferreira</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Médico</label>
+                        <select class="form-select" id="selectMedico">
+                            <option value="">Selecione o médico</option>
+                            <option>Dr. Carlos Eduardo — Clínico Geral</option>
+                            <option>Dra. Ana Paula — Cardiologia</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Data</label>
+                        <input type="date" class="form-control" id="inputData">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Horário</label>
+                        <select class="form-select" id="selectHorario">
+                            <option value="">Selecione o horário</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Observações</label>
+                        <textarea class="form-control" id="inputObs" rows="3" 
+                            placeholder="Descreva o motivo da consulta..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-2 fw-bold" 
+                        style="border-radius: 30px;" onclick="agendarConsulta()">
+                        <i class="bi bi-calendar-check"></i> Confirmar Agendamento
+                    </button>
+                </div>
+            </div>
+
+            <!-- LISTA DE AGENDAMENTOS -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm p-4" style="border-radius: 16px;">
+                    <h5 class="fw-bold mb-4">Consultas Agendadas</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Paciente</th>
+                                    <th>Médico</th>
+                                    <th>Data/Hora</th>
+                                    <th>Status</th>
+                                    <th>Observação</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaAgendamentos">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4 text-white mt-5">
+        <p class="mb-0">© 2025 VitaCare — Sistema de Agendamento Médico</p>
+    </footer>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function agendarConsulta() {
+            const paciente = document.getElementById('selectPaciente').value;
+            const medico = document.getElementById('selectMedico').value;
+            const data = document.getElementById('inputData').value;
+            const horario = document.getElementById('selectHorario').value;
+            const obs = document.getElementById('inputObs').value;
+
+            if (!paciente || !medico || !data || !horario) {
+                alert('Preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            const [ano, mes, dia] = data.split('-');
+            const dataFormatada = `${dia}/${mes}/${ano}`; 
+
+            consultas.push({
+                paciente: paciente,
+                medico: medico.split(' — ')[0],
+                especialidade: medico.split(' — ')[1] || '',
+                dataHora: `${dataFormatada} ${horario}`,
+                status: 'Pendente',
+                obs: obs || '—'
+            });
+
+            carregarAgendamentos();
+
+            // Limpa o formulário
+            document.getElementById('selectPaciente').value = '';
+            document.getElementById('selectMedico').value = '';
+            document.getElementById('inputData').value = '';
+            document.getElementById('selectHorario').value = '';
+            document.getElementById('inputObs').value = '';
+        }
+
+        function cancelarConsulta(index) {
+            consultas[index].status = 'Cancelado';
+            carregarAgendamentos();
+        }
+
+        function carregarAgendamentos() {
+            const tabela = document.getElementById('tabelaAgendamentos');
+            tabela.innerHTML = '';
+
+            consultas.forEach((c, i) => {
+                const badgeClass =
+                    c.status === 'Confirmado' ? 'badge-confirmado' :
+                    c.status === 'Pendente' ? 'badge-pendente' : 'badge-cancelado';
+
+                tabela.innerHTML += `
+                    <tr>
+                        <td>${c.paciente}</td>
+                        <td>${c.medico}</td>
+                        <td>${c.dataHora}</td>
+                        <td><span class="${badgeClass}">${c.status}</span></td>
+                        <td>${c.obs || '—'}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger" 
+                                onclick="cancelarConsulta(${i})">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarAgendamentos);
+    </script>
+</body>
+</html>

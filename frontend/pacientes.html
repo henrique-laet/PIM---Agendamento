@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaCare — Pacientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.svg" alt="VitaCare" style="height: 48px; margin-top: 8px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="agendamentos.html">Agendamentos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="medicos.html">Médicos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="pacientes.html">Pacientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold"><i class="bi bi-people text-primary"></i> Pacientes</h2>
+            <button class="btn btn-primary" style="border-radius: 30px;" 
+                data-bs-toggle="modal" data-bs-target="#modalNovoPaciente">
+                <i class="bi bi-person-plus"></i> Novo Paciente
+            </button>
+        </div>
+
+        <!-- BUSCA -->
+        <div class="mb-4">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="inputBusca" 
+                    placeholder="Buscar paciente por nome..." oninput="filtrarPacientes()">
+            </div>
+        </div>
+
+        <!-- TABELA -->
+        <div class="card shadow-sm p-4" style="border-radius: 16px;">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Convênio</th>
+                            <th>Nascimento</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaPacientes"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NOVO PACIENTE -->
+    <div class="modal fade" id="modalNovoPaciente" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 16px;">
+                <div class="modal-header" style="background-color: var(--azul-principal);">
+                    <h5 class="modal-title text-white">
+                        <i class="bi bi-person-plus"></i> Novo Paciente
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nome completo</label>
+                        <input type="text" class="form-control" id="inputNome" placeholder="Nome do paciente">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">CPF</label>
+                        <input type="text" class="form-control" id="inputCpf" placeholder="000.000.000-00">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Telefone</label>
+                        <input type="text" class="form-control" id="inputTelefone" placeholder="(11) 99999-0000">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Convênio</label>
+                        <select class="form-select" id="inputConvenio">
+                            <option>Particular</option>
+                            <option>Unimed</option>
+                            <option>Bradesco Saúde</option>
+                            <option>Amil</option>
+                            <option>SulAmérica</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="inputNascimento">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" 
+                        style="border-radius: 30px;" onclick="adicionarPaciente()">
+                        <i class="bi bi-check-circle"></i> Cadastrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4 text-white mt-5">
+        <p class="mb-0">© 2025 VitaCare — Sistema de Agendamento Médico</p>
+    </footer>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const pacientes = [
+            {
+                nome: "João Silva",
+                cpf: "111.222.333-44",
+                telefone: "11888880001",
+                convenio: "Unimed",
+                nascimento: "10/05/1990"
+            },
+            {
+                nome: "Maria Souza",
+                cpf: "555.666.777-88",
+                telefone: "11888880002",
+                convenio: "Particular",
+                nascimento: "30/11/1985"
+            },
+            {
+                nome: "Pedro Santos",
+                cpf: "999.888.777-66",
+                telefone: "11888880003",
+                convenio: "Bradesco Saúde",
+                nascimento: "15/03/1978"
+            },
+            {
+                nome: "Lucia Ferreira",
+                cpf: "444.333.222-11",
+                telefone: "11888880004",
+                convenio: "Amil",
+                nascimento: "22/07/1995"
+            }
+        ];
+
+        function carregarPacientes(lista = pacientes) {
+            const tabela = document.getElementById('tabelaPacientes');
+            tabela.innerHTML = '';
+
+            lista.forEach((p, i) => {
+                tabela.innerHTML += `
+                    <tr>
+                        <td><i class="bi bi-person-fill text-primary"></i> ${p.nome}</td>
+                        <td>${p.cpf}</td>
+                        <td>${p.telefone}</td>
+                        <td>${p.convenio}</td>
+                        <td>${p.nascimento}</td>
+                        <td>
+                            <a href="agendamentos.html" class="btn btn-sm btn-primary" 
+                                style="border-radius: 20px;">
+                                <i class="bi bi-calendar-plus"></i> Agendar
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filtrarPacientes() {
+            const busca = document.getElementById('inputBusca').value.toLowerCase();
+            const filtrados = pacientes.filter(p => p.nome.toLowerCase().includes(busca));
+            carregarPacientes(filtrados);
+        }
+
+        function adicionarPaciente() {
+            const nome = document.getElementById('inputNome').value;
+            const cpf = document.getElementById('inputCpf').value;
+            const telefone = document.getElementById('inputTelefone').value;
+            const convenio = document.getElementById('inputConvenio').value;
+            const nascimento = document.getElementById('inputNascimento').value;
+
+            if (!nome || !cpf || !telefone || !nascimento) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            const dataFormatada = new Date(nascimento).toLocaleDateString('pt-BR');
+
+            pacientes.push({ nome, cpf, telefone, convenio, nascimento: dataFormatada });
+            carregarPacientes();
+
+            // Fecha o modal e limpa
+            bootstrap.Modal.getInstance(document.getElementById('modalNovoPaciente')).hide();
+            document.getElementById('inputNome').value = '';
+            document.getElementById('inputCpf').value = '';
+            document.getElementById('inputTelefone').value = '';
+            document.getElementById('inputNascimento').value = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => carregarPacientes());
+window.onload = () => carregarPacientes();
+    </script>
+</body>
+</html>
