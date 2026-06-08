@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgendamentoMedico")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd07245368d1a7a8dc8dd95ef69924455fc0aedd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69b5bbf83172c631d501456a0bb6758c9b03f4d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgendamentoMedico")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgendamentoMedico")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

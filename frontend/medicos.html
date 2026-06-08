@@ -54,57 +54,38 @@
     <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const medicos = [
-            {
-                nome: "Dr. Carlos Eduardo",
-                crm: "CRM-SP-12345",
-                especialidade: "Clínico Geral",
-                email: "carlos@vitacare.com",
-                telefone: "11999990001",
-                duracao: "30 min",
-                valor: "R$ 120,00",
-                icone: "bi-clipboard2-pulse"
-            },
-            {
-                nome: "Dra. Ana Paula",
-                crm: "CRM-SP-54321",
-                especialidade: "Cardiologia",
-                email: "ana@vitacare.com",
-                telefone: "11999990002",
-                duracao: "45 min",
-                valor: "R$ 250,00",
-                icone: "bi-heart-pulse"
-            },
-            {
-                nome: "Dr. Roberto Lima",
-                crm: "CRM-SP-99887",
-                especialidade: "Oftalmologia",
-                email: "roberto@vitacare.com",
-                telefone: "11999990003",
-                duracao: "30 min",
-                valor: "R$ 180,00",
-                icone: "bi-eye"
-            }
-        ];
+<script>
+    const API_URL = 'http://127.0.0.1:5008/api';
 
-        function carregarMedicos() {
+    const icones = {
+        'Clínica Geral': 'bi-clipboard2-pulse',
+        'Cardiologia': 'bi-heart-pulse',
+        'Oftalmologia': 'bi-eye',
+        'Pediatria': 'bi-emoji-smile',
+        'Ortopedia': 'bi-bandaid',
+        'Dermatologia': 'bi-droplet'
+    };
+
+    async function carregarMedicos() {
+        try {
+            const response = await fetch(`${API_URL}/Medicos`);
+            const medicos = await response.json();
             const lista = document.getElementById('listaMedicos');
             lista.innerHTML = '';
 
             medicos.forEach(m => {
+                const icone = icones[m.especialidade] || 'bi-person-badge';
+
                 lista.innerHTML += `
                     <div class="col-md-4">
                         <div class="card card-especialidade p-4 text-center">
-                            <i class="bi ${m.icone} fs-1 text-primary mb-3"></i>
+                            <i class="bi ${icone} fs-1 text-primary mb-3"></i>
                             <h5 class="fw-bold">${m.nome}</h5>
                             <span class="badge bg-primary mb-3">${m.especialidade}</span>
                             <ul class="list-unstyled text-muted text-start">
                                 <li><i class="bi bi-card-text text-primary"></i> <strong>CRM:</strong> ${m.crm}</li>
-                                <li><i class="bi bi-envelope text-primary"></i> ${m.email}</li>
-                                <li><i class="bi bi-telephone text-primary"></i> ${m.telefone}</li>
-                                <li><i class="bi bi-clock text-primary"></i> Duração: ${m.duracao}</li>
-                                <li><i class="bi bi-cash text-primary"></i> Consulta: ${m.valor}</li>
+                                <li><i class="bi bi-envelope text-primary"></i> ${m.email || 'N/A'}</li>
+                                <li><i class="bi bi-telephone text-primary"></i> ${m.telefone || 'N/A'}</li>
                             </ul>
                             <a href="agendamentos.html" class="btn btn-primary mt-3" style="border-radius: 30px;">
                                 <i class="bi bi-calendar-plus"></i> Agendar
@@ -113,9 +94,12 @@
                     </div>
                 `;
             });
+        } catch (err) {
+            console.error('Erro ao carregar médicos:', err);
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', carregarMedicos);
-    </script>
+    document.addEventListener('DOMContentLoaded', carregarMedicos);
+</script>
 </body>
 </html>

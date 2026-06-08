@@ -18,3 +18,12 @@ C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\refint\AgendamentoMedico.dll
 C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.pdb
 C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.genruntimeconfig.cache
 C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\ref\AgendamentoMedico.dll
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.csproj.AssemblyReference.cache
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfoInputs.cache
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfo.cs
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.csproj.CoreCompileInputs.cache
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.sourcelink.json
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.dll
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\refint\AgendamentoMedico.dll
+C:\Users\Thiago\PIM---Agendamento\obj\Debug\net10.0\AgendamentoMedico.pdb
