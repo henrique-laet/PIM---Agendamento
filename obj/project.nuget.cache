@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "NFavD3NrEWk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\henrique.laet\\OneDrive - 7COMm Informática\\Documentos\\HenriqueProject\\PIM---Agendamento-master\\AgendamentoMedico.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\henrique.laet\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0\\microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\henrique.laet\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.0\\microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\henrique.laet\\.nuget\\packages\\npgsql\\10.0.2\\npgsql.10.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

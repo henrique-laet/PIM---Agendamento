@@ -1,0 +1,39 @@
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\AgendamentoMedico.exe
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\AgendamentoMedico.deps.json
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\AgendamentoMedico.runtimeconfig.json
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\AgendamentoMedico.dll
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\AgendamentoMedico.pdb
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\User\Desktop\Agendamento\bin\Debug\net10.0\Npgsql.dll
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfo.cs
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.sourcelink.json
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\Agendame.C3F43577.Up2Date
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.dll
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\refint\AgendamentoMedico.dll
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.pdb
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\AgendamentoMedico.genruntimeconfig.cache
+C:\Users\User\Desktop\Agendamento\obj\Debug\net10.0\ref\AgendamentoMedico.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\AgendamentoMedico.exe
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\AgendamentoMedico.deps.json
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\AgendamentoMedico.runtimeconfig.json
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\AgendamentoMedico.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\AgendamentoMedico.pdb
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\bin\Debug\net10.0\Npgsql.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.csproj.AssemblyReference.cache
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfoInputs.cache
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.AssemblyInfo.cs
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.csproj.CoreCompileInputs.cache
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\Agendame.C3F43577.Up2Date
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\refint\AgendamentoMedico.dll
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.pdb
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\AgendamentoMedico.genruntimeconfig.cache
+C:\Users\henrique.laet\OneDrive - 7COMm Informática\Documentos\HenriqueProject\PIM---Agendamento-master\obj\Debug\net10.0\ref\AgendamentoMedico.dll
