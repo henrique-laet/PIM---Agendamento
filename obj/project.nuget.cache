@@ -8,5 +8,15 @@
     "C:\\Users\\henrique.laet\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.0\\microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
     "C:\\Users\\henrique.laet\\.nuget\\packages\\npgsql\\10.0.2\\npgsql.10.0.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file C:\\Users\\henrique.laet\\OneDrive - 7COMm Informática\\Documentos\\HenriqueProject\\PIM---Agendamento-master\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\henrique.laet\\OneDrive - 7COMm Informática\\Documentos\\HenriqueProject\\PIM---Agendamento-master\\AgendamentoMedico.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\henrique.laet\\OneDrive - 7COMm Informática\\Documentos\\HenriqueProject\\PIM---Agendamento-master\\AgendamentoMedico.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

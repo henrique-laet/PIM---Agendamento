@@ -1,0 +1,16 @@
+<svg width="100%" viewBox="150 70 290 95" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Logo VitaCare</title>
+  <desc>Logo da clínica VitaCare com nome estilizado em vermelho</desc>
+
+  <style>
+    .logo-text-vita { font-family: Georgia, serif; font-size: 72px; font-weight: 700; fill: #c0132a; letter-spacing: -1px; }
+    .logo-text-care { font-family: Georgia, serif; font-size: 72px; font-weight: 400; fill: #8b0000; letter-spacing: -1px; }
+    .logo-sub { font-family: Arial, sans-serif; font-size: 13px; font-weight: 400; fill: #a04050; letter-spacing: 4px; }
+    .line-accent { stroke: #c0132a; stroke-width: 1.5; }
+  </style>
+
+  <text x="170" y="120" class="logo-text-vita">Vita</text>
+  <text x="300" y="120" class="logo-text-care">Care</text>
+  <line x1="170" y1="132" x2="430" y2="132" class="line-accent"/>
+  <text x="170" y="155" class="logo-sub">CLÍNICA MÉDICA</text>
+</svg>
