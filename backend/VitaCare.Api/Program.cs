@@ -15,6 +15,8 @@ var jwtKey = builder.Configuration["Jwt:Key"]
 
 builder.Services.AddSingleton<DbConnectionFactory>();
 builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<CatalogoRepository>();
+builder.Services.AddScoped<AgendamentoRepository>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddControllers();
 
