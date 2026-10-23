@@ -1,0 +1,131 @@
+/* VitaCare - Componentes */
+
+/* ===== Botões ===== */
+.btn {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .7rem 1.2rem; border: 1.5px solid transparent; border-radius: var(--vc-radius-sm);
+  font: 600 .95rem/1 var(--vc-font); text-decoration: none; cursor: pointer; user-select: none;
+  transition: transform .15s var(--vc-ease), box-shadow .2s, background .2s, border-color .2s, color .2s;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--vc-shadow); }
+.btn:active { transform: translateY(0) scale(.97); }
+.btn[disabled], .btn.is-loading { opacity: .65; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn svg { width: 1.1em; height: 1.1em; }
+
+.btn-primary { background: var(--vc-primary); color: var(--vc-on-primary); }
+.btn-primary:hover { background: var(--vc-primary-hover); }
+.btn-secondary { background: var(--vc-surface); border-color: var(--vc-border); color: var(--vc-text); }
+.btn-secondary:hover { border-color: var(--vc-primary); color: var(--vc-primary); }
+.btn-ghost { background: transparent; color: var(--vc-primary); }
+.btn-ghost:hover { background: var(--vc-primary-soft); box-shadow: none; }
+.btn-danger { background: var(--vc-danger-solid); color: #fff; }
+.btn-danger:hover { background: #a61f1f; }
+
+.btn-sm { padding: .5rem .85rem; font-size: .85rem; }
+.btn-lg { padding: .9rem 1.6rem; font-size: 1.05rem; }
+.btn-block { width: 100%; }
+
+.btn.is-loading::after {
+  content: ""; width: 1em; height: 1em; border: 2px solid currentColor;
+  border-right-color: transparent; border-radius: 50%; animation: vc-spin .7s linear infinite;
+}
+.ripple {
+  position: absolute; border-radius: 50%; background: currentColor; opacity: .25;
+  transform: scale(0); pointer-events: none; animation: vc-ripple .55s ease-out forwards;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: var(--vc-surface); border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius); padding: 1.25rem; box-shadow: var(--vc-shadow);
+}
+.card-interativo {
+  width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer;
+  transition: transform .2s var(--vc-ease), box-shadow .2s, border-color .2s, background .2s;
+}
+.card-interativo:hover { transform: translateY(-3px); box-shadow: var(--vc-shadow-hover); border-color: var(--vc-primary); }
+.card-interativo:active { transform: translateY(-1px) scale(.99); }
+.card-interativo[aria-pressed="true"] {
+  border-color: var(--vc-primary); background: var(--vc-primary-soft);
+  box-shadow: 0 0 0 2px var(--vc-primary);
+}
+.icone-circulo {
+  width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+  background: var(--vc-primary-soft); color: var(--vc-primary); margin-bottom: .75rem;
+}
+
+/* ===== Formulários ===== */
+.campo { display: grid; gap: .35rem; }
+.campo label { font-weight: 600; font-size: .9rem; }
+.campo .erro { color: var(--vc-danger); font-size: .85rem; min-height: 1.1em; }
+.input {
+  width: 100%; padding: .75rem .9rem; border: 1.5px solid var(--vc-border);
+  border-radius: var(--vc-radius-sm); background: var(--vc-surface); color: var(--vc-text);
+  font: inherit; transition: border-color .2s, box-shadow .2s;
+}
+.input:hover { border-color: var(--vc-muted); }
+.input:focus {
+  outline: none; border-color: var(--vc-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--vc-primary) 22%, transparent);
+}
+.input.is-invalid { border-color: var(--vc-danger); }
+
+/* ===== Selos de status ===== */
+.badge {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .7rem;
+  border-radius: 999px; font-size: .8rem; font-weight: 700;
+}
+.badge-agendada  { background: var(--vc-primary-soft); color: var(--vc-primary); }
+.badge-concluida { background: var(--vc-success-soft); color: var(--vc-success); }
+.badge-cancelada { background: var(--vc-danger-soft);  color: var(--vc-danger); }
+.badge-pendente  { background: var(--vc-warning-soft); color: var(--vc-warning); }
+
+/* ===== Topo ===== */
+.topo {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--vc-surface) 88%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--vc-border);
+}
+.topo .container { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 1rem; }
+.marca { display: flex; align-items: center; gap: .6rem; font-weight: 800; font-size: 1.2rem; color: var(--vc-text); text-decoration: none; }
+.marca svg { color: var(--vc-primary); }
+
+/* ===== Toasts ===== */
+.toasts {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 1000; display: grid; gap: .6rem;
+  width: min(360px, calc(100% - 2rem));
+}
+.toast {
+  padding: .85rem 1rem; background: var(--vc-surface); border: 1px solid var(--vc-border);
+  border-left: 5px solid var(--vc-primary); border-radius: var(--vc-radius-sm);
+  box-shadow: var(--vc-shadow-hover); cursor: pointer; animation: vc-toast-in .3s var(--vc-ease);
+}
+.toast.saindo { animation: vc-toast-out .25s forwards; }
+.toast-sucesso { border-left-color: var(--vc-success); }
+.toast-erro    { border-left-color: var(--vc-danger); }
+.toast-aviso   { border-left-color: var(--vc-warning); }
+
+/* ===== Modal ===== */
+dialog.modal {
+  border: none; border-radius: var(--vc-radius); padding: 1.5rem;
+  width: min(440px, calc(100% - 2rem)); background: var(--vc-surface); color: var(--vc-text);
+  box-shadow: var(--vc-shadow-hover);
+}
+dialog.modal::backdrop { background: rgba(8, 20, 24, .55); backdrop-filter: blur(3px); }
+dialog.modal[open] { animation: vc-pop .22s var(--vc-ease); }
+.modal-acoes { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.25rem; }
+
+/* ===== Carregando ===== */
+.skeleton {
+  min-height: 1rem; border-radius: var(--vc-radius-sm);
+  background: linear-gradient(90deg, var(--vc-surface-2) 25%, var(--vc-border) 50%, var(--vc-surface-2) 75%);
+  background-size: 200% 100%; animation: vc-shimmer 1.4s linear infinite;
+}
+
+@keyframes vc-spin { to { transform: rotate(360deg); } }
+@keyframes vc-ripple { to { transform: scale(1); opacity: 0; } }
+@keyframes vc-toast-in { from { opacity: 0; transform: translateY(12px) scale(.96); } }
+@keyframes vc-toast-out { to { opacity: 0; transform: translateX(24px); } }
+@keyframes vc-pop { from { opacity: 0; transform: scale(.94); } }
+@keyframes vc-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
