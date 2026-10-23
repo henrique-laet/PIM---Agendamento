@@ -1,11 +1,22 @@
 # .NET
-**/bin/
-**/obj/
+bin/
+obj/
 *.user
 *.suo
+.vs/
 
-# Node
-node_modules/
+# VS Code
+.vscode/
 
-# Banco (segurança)
+# Configuracoes sensiveis
 appsettings.Development.json
+appsettings.Local.json
+.env
+
+# Node (para o front, se usarmos Vite)
+node_modules/
+dist/
+
+# Sistema
+.DS_Store
+Thumbs.db
