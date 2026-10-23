@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VitaCare — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <a class="marca" href="#"><i data-lucide="heart-pulse"></i> VitaCare</a>
+      <button id="btn-tema" class="btn btn-ghost btn-sm" type="button"><i data-lucide="moon"></i> Tema</button>
+    </div>
+  </header>
+
+  <main class="container stack" style="--space: 2.5rem; padding-block: 2rem">
+    <section>
+      <h1>Design System</h1>
+      <p class="muted">Sua saúde, organizada. Tudo o que os dois portais vão usar, em um lugar só.</p>
+    </section>
+
+    <section class="stack">
+      <h2>Botões</h2>
+      <div class="row">
+        <button class="btn btn-primary" type="button"><i data-lucide="calendar-check"></i> Agendar</button>
+        <button class="btn btn-secondary" type="button">Secundário</button>
+        <button class="btn btn-ghost" type="button">Ghost</button>
+        <button class="btn btn-danger" type="button"><i data-lucide="x"></i> Cancelar</button>
+        <button class="btn btn-primary" type="button" disabled>Desabilitado</button>
+      </div>
+      <div class="row">
+        <button id="btn-carregando" class="btn btn-primary" type="button">Simular carregamento</button>
+        <button class="btn btn-primary btn-sm" type="button">Pequeno</button>
+        <button class="btn btn-primary btn-lg" type="button">Grande</button>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Campos</h2>
+      <div class="grid">
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input id="nome" class="input" placeholder="Maria da Silva">
+        </div>
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input id="email" class="input is-invalid" value="email-invalido">
+          <span class="erro">Informe um e-mail válido.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Status</h2>
+      <div class="row">
+        <span class="badge badge-agendada">Agendada</span>
+        <span class="badge badge-concluida">Concluída</span>
+        <span class="badge badge-cancelada">Cancelada</span>
+        <span class="badge badge-pendente">Pendente</span>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Cards selecionáveis</h2>
+      <div class="grid" id="cards-demo">
+        <button class="card card-interativo" type="button" aria-pressed="false">
+          <div class="icone-circulo"><i data-lucide="stethoscope"></i></div>
+          <h3>Clínica Geral</h3>
+          <p class="muted">Clique para selecionar.</p>
+        </button>
+        <button class="card card-interativo" type="button" aria-pressed="false">
+          <div class="icone-circulo"><i data-lucide="heart-pulse"></i></div>
+          <h3>Cardiologia</h3>
+          <p class="muted">Clique para selecionar.</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Avisos e confirmação</h2>
+      <div class="row">
+        <button class="btn btn-secondary" type="button" data-toast="sucesso">Toast sucesso</button>
+        <button class="btn btn-secondary" type="button" data-toast="erro">Toast erro</button>
+        <button class="btn btn-secondary" type="button" data-toast="aviso">Toast aviso</button>
+        <button id="btn-confirmar" class="btn btn-danger" type="button">Abrir confirmação</button>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Dados reais da API</h2>
+      <p class="muted">Busca as especialidades do banco. Se funcionar, o CORS está certo.</p>
+      <button id="btn-api" class="btn btn-primary" type="button"><i data-lucide="cloud-download"></i> Carregar especialidades</button>
+      <div id="resultado-api" class="grid"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/acessibilidade.js" defer></script>
+  <script type="module">
+    import { api } from './js/api.js';
+    import { toast, confirmar, comCarregamento, alternarTema, renderizarIcones } from './js/ui.js';
+
+    renderizarIcones();
+
+    document.getElementById('btn-tema').addEventListener('click', alternarTema);
+
+    document.getElementById('btn-carregando').addEventListener('click', (e) =>
+      comCarregamento(e.currentTarget, () => new Promise((ok) => setTimeout(ok, 1800)))
+    );
+
+    const mensagens = {
+      sucesso: 'Consulta agendada com sucesso!',
+      erro: 'Este horário não está mais disponível.',
+      aviso: 'Sua sessão expira em 5 minutos.',
+    };
+    document.querySelectorAll('[data-toast]').forEach((b) =>
+      b.addEventListener('click', () => toast(mensagens[b.dataset.toast], b.dataset.toast))
+    );
+
+    document.getElementById('btn-confirmar').addEventListener('click', async () => {
+      const ok = await confirmar({
+        titulo: 'Cancelar consulta?',
+        mensagem: 'O horário será liberado para outros pacientes.',
+        confirmarTexto: 'Sim, cancelar',
+        perigo: true,
+      });
+      toast(ok ? 'Consulta cancelada.' : 'Tudo certo, nada foi alterado.', ok ? 'sucesso' : 'info');
+    });
+
+    document.querySelectorAll('#cards-demo .card').forEach((card, _, todos) =>
+      card.addEventListener('click', () => {
+        todos.forEach((c) => c.setAttribute('aria-pressed', c === card ? 'true' : 'false'));
+      })
+    );
+
+    document.getElementById('btn-api').addEventListener('click', (e) =>
+      comCarregamento(e.currentTarget, async () => {
+        const area = document.getElementById('resultado-api');
+        area.replaceChildren(...Array.from({ length: 3 }, () => {
+          const s = document.createElement('div');
+          s.className = 'skeleton';
+          s.style.height = '110px';
+          return s;
+        }));
+        try {
+          const lista = await api('/especialidades', { autenticado: false });
+          area.replaceChildren(...lista.map((esp) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const icone = document.createElement('div');
+            icone.className = 'icone-circulo';
+            const i = document.createElement('i');
+            i.setAttribute('data-lucide', esp.icone || 'stethoscope');
+            icone.append(i);
+            const titulo = document.createElement('h3');
+            titulo.textContent = esp.nome;
+            card.append(icone, titulo);
+            return card;
+          }));
+          renderizarIcones();
+          toast(`${lista.length} especialidades carregadas.`, 'sucesso');
+        } catch (erro) {
+          area.replaceChildren();
+          toast(erro.message, 'erro', 6000);
+        }
+      })
+    );
+  </script>
+</body>
+</html>

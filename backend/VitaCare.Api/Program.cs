@@ -19,6 +19,13 @@ builder.Services.AddScoped<CatalogoRepository>();
 builder.Services.AddScoped<AgendamentoRepository>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Front", politica => politica
+        .WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -44,6 +51,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseCors("Front");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
