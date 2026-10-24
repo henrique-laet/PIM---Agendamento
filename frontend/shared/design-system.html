@@ -96,6 +96,7 @@
       <p class="muted">Busca as especialidades do banco. Se funcionar, o CORS está certo.</p>
       <button id="btn-api" class="btn btn-primary" type="button"><i data-lucide="cloud-download"></i> Carregar especialidades</button>
       <div id="resultado-api" class="grid"></div>
+      <div id="resultado-medicos" class="grid" aria-live="polite"></div>
     </section>
   </main>
 
@@ -138,32 +139,97 @@
       })
     );
 
+    // ---------- Especialidades selecionáveis + médicos ----------
+    function esqueletos(quantidade, altura) {
+      return Array.from({ length: quantidade }, () => {
+        const s = document.createElement('div');
+        s.className = 'skeleton';
+        s.style.height = altura;
+        return s;
+      });
+    }
+
+    function criarCardEspecialidade(esp, aoSelecionar) {
+      // <button>: ganha foco, Enter/Espaço e leitor de tela sem código extra
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'card card-interativo';
+      card.setAttribute('aria-pressed', 'false');
+      const icone = document.createElement('div');
+      icone.className = 'icone-circulo';
+      const i = document.createElement('i');
+      i.setAttribute('data-lucide', esp.icone || 'stethoscope');
+      icone.append(i);
+      // <span>, não <h3>: título dentro de botão é HTML inválido
+      const titulo = document.createElement('span');
+      titulo.textContent = esp.nome;
+      titulo.style.cssText = 'display:block;font-weight:700;font-size:1.05rem';
+      card.append(icone, titulo);
+      card.addEventListener('click', () => aoSelecionar(esp, card));
+      return card;
+    }
+
+    function criarCardMedico(m) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const icone = document.createElement('div');
+      icone.className = 'icone-circulo';
+      const i = document.createElement('i');
+      i.setAttribute('data-lucide', 'user-round');
+      icone.append(i);
+      const nome = document.createElement('strong');
+      nome.textContent = m.nome;
+      nome.style.display = 'block';
+      const crm = document.createElement('p');
+      crm.className = 'muted';
+      crm.textContent = `CRM ${m.crm}`;
+      card.append(icone, nome, crm);
+      if (m.bio) {
+        const bio = document.createElement('p');
+        bio.textContent = m.bio;
+        card.append(bio);
+      }
+      return card;
+    }
+
+    let ultimaSelecao = 0; // evita que uma resposta lenta sobrescreva a mais recente
+
+    async function selecionarEspecialidade(esp, card) {
+      document.querySelectorAll('#resultado-api .card-interativo').forEach((c) =>
+        c.setAttribute('aria-pressed', c === card ? 'true' : 'false')
+      );
+      const minha = ++ultimaSelecao;
+      const area = document.getElementById('resultado-medicos');
+      area.replaceChildren(...esqueletos(2, '150px'));
+      try {
+        const medicos = await api(`/medicos?especialidadeId=${esp.id}`, { autenticado: false });
+        if (minha !== ultimaSelecao) return;
+        if (medicos.length === 0) {
+          const vazio = document.createElement('p');
+          vazio.className = 'muted';
+          vazio.textContent = `Nenhum médico disponível em ${esp.nome} no momento.`;
+          area.replaceChildren(vazio);
+          return;
+        }
+        area.replaceChildren(...medicos.map(criarCardMedico));
+        renderizarIcones();
+      } catch (erro) {
+        if (minha !== ultimaSelecao) return;
+        area.replaceChildren();
+        toast(erro.message, 'erro', 6000);
+      }
+    }
+
     document.getElementById('btn-api').addEventListener('click', (e) =>
       comCarregamento(e.currentTarget, async () => {
         const area = document.getElementById('resultado-api');
-        area.replaceChildren(...Array.from({ length: 3 }, () => {
-          const s = document.createElement('div');
-          s.className = 'skeleton';
-          s.style.height = '110px';
-          return s;
-        }));
+        document.getElementById('resultado-medicos').replaceChildren();
+        area.replaceChildren(...esqueletos(6, '110px'));
         try {
           const lista = await api('/especialidades', { autenticado: false });
-          area.replaceChildren(...lista.map((esp) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            const icone = document.createElement('div');
-            icone.className = 'icone-circulo';
-            const i = document.createElement('i');
-            i.setAttribute('data-lucide', esp.icone || 'stethoscope');
-            icone.append(i);
-            const titulo = document.createElement('h3');
-            titulo.textContent = esp.nome;
-            card.append(icone, titulo);
-            return card;
-          }));
+          area.replaceChildren(...lista.map((esp) => criarCardEspecialidade(esp, selecionarEspecialidade)));
           renderizarIcones();
-          toast(`${lista.length} especialidades carregadas.`, 'sucesso');
+          toast(`${lista.length} especialidades carregadas. Clique em uma para ver os médicos.`, 'sucesso');
         } catch (erro) {
           area.replaceChildren();
           toast(erro.message, 'erro', 6000);
